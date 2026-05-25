@@ -1,6 +1,3 @@
-bash
-
-
 <?php
 session_start();
 if (!isset($_SESSION['id_user'])) { header("Location: login.php"); exit(); }
@@ -87,7 +84,7 @@ include 'header_nav.php';
 </div>
 
 <!-- RINGKASAN -->
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem">
+<div class="summary-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem">
   <div style="background:#E8F5E9;border:1px solid #C8E6C9;border-radius:12px;padding:1rem 1.25rem">
     <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#2E7D32;margin-bottom:.3rem">Total Produk Masuk</div>
     <div style="font-size:1.4rem;font-weight:700;color:#1B5E20">Rp <?= number_format($total_masuk,0,',','.') ?></div>
@@ -150,7 +147,7 @@ include 'header_nav.php';
   </div>
   <?php else: ?>
   <div class="table-wrap">
-  <table>
+  <table class="riwayat-table">
     <thead>
       <tr>
         <th>#</th>
@@ -168,28 +165,28 @@ include 'header_nav.php';
       <?php $no = 1; foreach ($semua as $r): ?>
       <tr>
         <td><?= $no++ ?></td>
-        <td>
+        <td style="white-space:nowrap">
           <?php if ($r['jenis'] === 'masuk'): ?>
             <span class="badge badge-h">📥 Masuk</span>
           <?php else: ?>
             <span class="badge badge-w">📤 Keluar</span>
           <?php endif; ?>
         </td>
-        <td><?= htmlspecialchars($r['tanggal'] ?? '-') ?></td>
-        <td><strong><?= htmlspecialchars($r['nama_produk'] ?? '-') ?></strong></td>
-        <td>
+        <td style="white-space:nowrap"><?= htmlspecialchars($r['tanggal'] ?? '-') ?></td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><strong><?= htmlspecialchars($r['nama_produk'] ?? '-') ?></strong></td>
+        <td style="white-space:nowrap">
           <span style="font-weight:600;color:<?= $r['jenis']==='masuk'?'#2E7D32':'#C62828' ?>">
             <?= $r['jenis']==='masuk'?'+':'-' ?><?= htmlspecialchars($r['jumlah']) ?>
             <?= htmlspecialchars($r['satuan'] ?? '') ?>
           </span>
         </td>
-        <td>Rp <?= number_format((int)$r['harga_satuan'],0,',','.') ?></td>
-        <td>
+        <td style="white-space:nowrap">Rp <?= number_format((int)$r['harga_satuan'],0,',','.') ?></td>
+        <td style="white-space:nowrap">
           <strong style="color:<?= $r['jenis']==='masuk'?'#1B5E20':'#B71C1C' ?>">
             Rp <?= number_format((int)$r['total'],0,',','.') ?>
           </strong>
         </td>
-        <td style="font-size:.8rem;color:var(--muda)">
+        <td style="font-size:.8rem;color:var(--muda);white-space:nowrap">
           <?= htmlspecialchars($r['keterangan'] ?? '-') ?>
         </td>
         <td style="font-size:.78rem;color:var(--muda);white-space:nowrap">

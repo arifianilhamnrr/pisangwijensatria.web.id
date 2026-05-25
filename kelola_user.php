@@ -161,7 +161,7 @@ include 'header_nav.php';
     <span class="badge-count"><?= mysqli_num_rows($user_list) ?> akun</span>
   </div>
   <div class="table-wrap">
-  <table>
+  <table class="user-table">
     <thead>
       <tr><th>#</th><th>Nama</th><th>Username</th><th>Level</th><th>No. HP</th><th>Alamat</th><th>Aksi</th></tr>
     </thead>
@@ -169,23 +169,23 @@ include 'header_nav.php';
       <?php $no=1; mysqli_data_seek($user_list,0); while ($u = mysqli_fetch_assoc($user_list)): ?>
       <tr <?= $u['id_user']==$_SESSION['id_user']?'style="background:#FFFDE7"':'' ?>>
         <td><?= $no++ ?></td>
-        <td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
           <?= htmlspecialchars($u['nama_user']) ?>
           <?php if ($u['id_user']==$_SESSION['id_user']): ?>
             <span class="badge badge-o" style="font-size:.65rem">Anda</span>
           <?php endif; ?>
         </td>
-        <td><code><?= htmlspecialchars($u['username']) ?></code></td>
-        <td>
+        <td style="white-space:nowrap"><code><?= htmlspecialchars($u['username']) ?></code></td>
+        <td style="white-space:nowrap">
           <?php
           $lv = $u['level_user'];
           $cls = $lv==2 ? 'badge-h' : ($lv==1 ? 'badge-o' : 'badge-abu');
           ?>
           <span class="badge <?= $cls ?>"><?= $level_map[$lv] ?? '-' ?></span>
         </td>
-        <td><?= htmlspecialchars($u['no_hp']) ?></td>
-        <td><?= htmlspecialchars($u['alamat']) ?></td>
-        <td>
+        <td style="white-space:nowrap"><?= htmlspecialchars($u['no_hp']) ?></td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><?= htmlspecialchars($u['alamat']) ?></td>
+        <td style="white-space:nowrap">
           <a href="kelola_user.php?edit=<?= $u['id_user'] ?>" class="btn btn-kecil btn-biru">✏ Edit</a>
           <?php if ($u['id_user'] != $_SESSION['id_user']): ?>
           <a href="kelola_user.php?hapus=<?= $u['id_user'] ?>"

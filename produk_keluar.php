@@ -95,17 +95,17 @@ include 'header_nav.php';
 <div class="card">
   <div class="card-head"><span class="card-title">📋 Riwayat Produk Keluar (20 Terakhir)</span></div>
   <div class="table-wrap">
-  <table>
+  <table class="keluar-table">
     <thead><tr><th>#</th><th>Produk</th><th>Jumlah Keluar</th><th>Tgl Keluar</th><th>ID Transaksi</th><th>Waktu</th></tr></thead>
     <tbody>
       <?php $no=1; while ($k = mysqli_fetch_assoc($keluar_list)): ?>
       <tr>
         <td><?= $no++ ?></td>
-        <td><?= htmlspecialchars($k['nama_produk'] ?? '-') ?></td>
-        <td><span class="badge badge-w">-<?= $k['qty_kel'] ?> <?= htmlspecialchars($k['satuan'] ?? '') ?></span></td>
-        <td><?= htmlspecialchars($k['tgl_keluar']) ?></td>
-        <td><code><?= htmlspecialchars($k['id_transaksi']) ?></code></td>
-        <td style="font-size:.8rem;color:var(--muda)"><?= $k['time'] ?></td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><?= htmlspecialchars($k['nama_produk'] ?? '-') ?></td>
+        <td style="white-space:nowrap"><span class="badge badge-w">-<?= $k['qty_kel'] ?> <?= htmlspecialchars($k['satuan'] ?? '') ?></span></td>
+        <td style="white-space:nowrap"><?= htmlspecialchars($k['tgl_keluar']) ?></td>
+        <td style="white-space:nowrap"><code><?= htmlspecialchars($k['id_transaksi']) ?></code></td>
+        <td style="font-size:.8rem;color:var(--muda);white-space:nowrap"><?= $k['time'] ?></td>
       </tr>
       <?php endwhile; ?>
     </tbody>

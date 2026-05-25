@@ -88,15 +88,15 @@ include 'header_nav.php';
     <span class="badge-count"><?= mysqli_num_rows($kat_list) ?> kategori</span>
   </div>
   <div class="table-wrap">
-  <table>
+  <table class="kategori-table">
     <thead><tr><th>#</th><th>Nama Kategori</th><th>Jumlah Produk</th><th>Aksi</th></tr></thead>
     <tbody>
       <?php $no=1; while ($k = mysqli_fetch_assoc($kat_list)): ?>
       <tr>
         <td><?= $no++ ?></td>
-        <td><?= htmlspecialchars($k['nama_kategori']) ?></td>
-        <td><span class="badge badge-o"><?= $k['jml_produk'] ?> produk</span></td>
-        <td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><?= htmlspecialchars($k['nama_kategori']) ?></td>
+        <td style="white-space:nowrap"><span class="badge badge-o"><?= $k['jml_produk'] ?> produk</span></td>
+        <td style="white-space:nowrap">
           <a href="kelola_kategori.php?edit=<?= $k['id_kategori'] ?>" class="btn btn-kecil btn-biru">✏ Edit</a>
           <?php if ($k['jml_produk'] == 0): ?>
           <a href="kelola_kategori.php?hapus=<?= $k['id_kategori'] ?>"
