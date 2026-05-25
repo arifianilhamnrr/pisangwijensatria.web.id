@@ -5,9 +5,9 @@
 // =============================================
 date_default_timezone_set('Asia/Jakarta');
 $host     = "localhost";
-$username = "root";
-$password = "";
-$database = "persediaan_pisang_wijen_satria";
+$username = "pisangwijen";
+$password = "YxnafJKmX2htfiay";
+$database = "pisangwijen";
 
 $koneksi = mysqli_connect($host, $username, $password, $database);
 
