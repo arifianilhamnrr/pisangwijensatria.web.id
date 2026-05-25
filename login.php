@@ -367,13 +367,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </form>
 
-    <!-- Info akun yang tersedia -->
-    <div class="demo-info">
-      <div class="demo-title">🔑 Akun yang Tersedia</div>
-      <div class="demo-row"><strong>Pemilik/Karyawan</strong> <span>user: owner / pass: suksesselalu1</span></div>
-
-    </div>
-
     <p class="form-footer">© 2026 Pisang Wijen Satria · Purwokerto</p>
   </div>
 

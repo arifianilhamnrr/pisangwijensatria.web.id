@@ -72,7 +72,7 @@ include 'header_nav.php';
           <option value="">— Pilih Produk —</option>
           <?php while ($m = mysqli_fetch_assoc($masuk_ada)): ?>
           <option value="<?= $m['id_produk_masuk'] ?>">
-            <?= htmlspecialchars($m['nama_produk']) ?> (Sisa: <?= $m['sisa'] ?> <?= $m['satuan'] ?>)
+            <?= htmlspecialchars($m['nama_produk'] ?? '-') ?> (Sisa: <?= $m['sisa'] ?> <?= htmlspecialchars($m['satuan'] ?? '') ?>)
           </option>
           <?php endwhile; ?>
         </select>

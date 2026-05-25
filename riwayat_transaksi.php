@@ -222,5 +222,3 @@ include 'header_nav.php';
 </div>
 
 <?php include 'footer_nav.php'; ?>
-PHPEOF
-echo "done"

@@ -24,19 +24,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hp     = mysqli_real_escape_string($koneksi, trim($_POST['no_hp']));
 
     if ($id > 0) {
-        if (empty($pass)) {
-            $sql = "UPDATE supplier SET nama_supplier='$nama',nama_toko='$toko',
-                        alamat='$alamat',no_hp='$hp'
-                    WHERE id_supplier=$id";
-        } else {
-            $sql = "UPDATE supplier SET nama_supplier='$nama',nama_toko='$toko',
-                        alamat='$alamat',no_hp='$hp'
-                    WHERE id_supplier=$id";
-        }
+        $sql = "UPDATE supplier SET nama_supplier='$nama',nama_toko='$toko',
+                    alamat='$alamat',no_hp='$hp'
+                WHERE id_supplier=$id";
         $pesan = "Data supplier berhasil diperbarui!";
     } else {
-        $sql = "INSERT INTO supplier (nama_supplier,nama_toko,alamat,no_hp)
-                VALUES ('$nama','$toko','$alamat','$hp')";
+        // Generate username dari nama toko (lowercase, tanpa spasi)
+        $username = strtolower(str_replace(' ', '', $toko));
+        // Password default: "supplier123"
+        $password = 'supplier123';
+
+        $sql = "INSERT INTO supplier (nama_supplier,nama_toko,alamat,no_hp,username_supp,pass_supp)
+                VALUES ('$nama','$toko','$alamat','$hp','$username','$password')";
         $pesan = "Supplier baru berhasil ditambahkan!";
     }
     mysqli_query($koneksi, $sql);

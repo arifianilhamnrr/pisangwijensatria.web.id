@@ -86,8 +86,8 @@ include 'header_nav.php';
       <?php $no=1; while ($m = mysqli_fetch_assoc($masuk_list)): ?>
       <tr>
         <td><?= $no++ ?></td>
-        <td><?= htmlspecialchars($m['nama_produk']) ?></td>
-        <td><span class="badge badge-h">+<?= $m['qty'] ?> <?= htmlspecialchars($m['satuan']) ?></span></td>
+        <td><?= htmlspecialchars($m['nama_produk'] ?? '-') ?></td>
+        <td><span class="badge badge-h">+<?= $m['qty'] ?> <?= htmlspecialchars($m['satuan'] ?? '') ?></span></td>
         <td><?= $m['sisa'] ?></td>
         <td><?= htmlspecialchars($m['tgl_masuk'] ?? '-') ?></td>
         <td style="font-size:.8rem;color:var(--muda)"><?= $m['create_time'] ?></td>
