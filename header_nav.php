@@ -24,6 +24,7 @@ $label_level   = $level_map[$level] ?? 'User';
   --coklat:#5D3A0A; --coklat-tua:#3E2003;
   --muda:#9E8060; --krem:#FFF8EE; --border:#EFE0C4;
 }
+html { scroll-behavior:smooth; }
 body { font-family:'DM Sans',sans-serif; background:#F7F0E6; color:var(--coklat-tua); min-height:100vh; }
 
 /* ===== SIDEBAR ===== */
@@ -89,7 +90,7 @@ body { font-family:'DM Sans',sans-serif; background:#F7F0E6; color:var(--coklat-
 .alert-error::before  { content:'❌ '; }
 
 /* ===== CARD ===== */
-.card { background:#fff; border-radius:14px; padding:1.35rem; border:1px solid var(--border); }
+.card { background:#fff; border-radius:14px; padding:1.35rem; border:1px solid var(--border); overflow:hidden; }
 .card.mb { margin-bottom:1.25rem; }
 .card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.1rem; flex-wrap:wrap; gap:8px; }
 .card-title { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--coklat); }
@@ -135,7 +136,32 @@ th { font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var
 td { padding:.6rem .5rem; font-size:.875rem; border-bottom:1px solid #FAF4E8; vertical-align:middle; }
 tr:last-child td { border-bottom:none; }
 tr:hover td { background:#FFFAF3; }
-code { background:#F0E8DC; padding:2px 7px; border-radius:4px; font-size:.8rem; }
+code { background:#F0E8DC; padding:2px 7px; border-radius:4px; font-size:.8rem; word-break:break-all; }
+
+/* Tabel khusus dashboard - tidak perlu min-width */
+.dashboard-table { min-width:auto; width:100%; table-layout:fixed; }
+.dashboard-table td { overflow:hidden; text-overflow:ellipsis; }
+.dashboard-table th:nth-child(1) { width:35%; }
+.dashboard-table th:nth-child(2) { width:25%; }
+.dashboard-table th:nth-child(3) { width:25%; }
+.dashboard-table th:nth-child(4) { width:15%; }
+
+/* Transaction list */
+.transaction-list { overflow:hidden; }
+
+/* Tabel produk - kelola produk */
+.produk-table { min-width:auto; width:100%; }
+.produk-table td, .produk-table th { white-space:nowrap; }
+.produk-table .btn { display:inline-block; margin:0 2px; }
+
+/* Tabel lainnya */
+.keluar-table, .kategori-table, .riwayat-table, .supplier-table, .user-table { min-width:auto; width:100%; }
+.keluar-table td, .keluar-table th,
+.kategori-table td, .kategori-table th,
+.riwayat-table td, .riwayat-table th,
+.supplier-table td, .supplier-table th,
+.user-table td, .user-table th { white-space:nowrap; }
+.keluar-table .btn, .kategori-table .btn, .riwayat-table .btn, .supplier-table .btn, .user-table .btn { display:inline-block; margin:0 2px; }
 
 /* ===== BADGE ===== */
 .badge { display:inline-block; padding:2px 9px; border-radius:20px; font-size:.72rem; font-weight:600; }
@@ -145,20 +171,216 @@ code { background:#F0E8DC; padding:2px 7px; border-radius:4px; font-size:.8rem; 
 .badge-abu { background:#F3F4F6; color:#555; border:1px solid #E0E0E0; }
 .badge-b   { background:#E6F1FB; color:#185FA5; }
 
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+  display:none; position:fixed; top:1rem; left:1rem; z-index:300;
+  background:linear-gradient(135deg,var(--kuning),var(--oranye));
+  border:none; border-radius:8px; padding:8px 12px;
+  cursor:pointer; box-shadow:0 4px 12px rgba(230,81,0,.3);
+}
+.hamburger span {
+  display:block; width:20px; height:2px; background:#fff;
+  margin:4px 0; transition:all .3s;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width:850px) {
   .sidebar { width:200px; }
   .main { margin-left:200px; padding:1.25rem; }
   .form-grid { grid-template-columns:1fr; }
+  .page-head { flex-direction:column; align-items:flex-start; }
 }
-@media (max-width:600px) {
-  .sidebar { display:none; }
-  .main { margin-left:0; }
+
+@media (max-width:768px) {
+  .hamburger { display:block; }
+  .sidebar {
+    transform:translateX(-100%); transition:transform .3s;
+    width:260px; box-shadow:none;
+  }
+  .sidebar.open {
+    transform:translateX(0); box-shadow:4px 0 20px rgba(62,32,3,.4);
+  }
+  .main { margin-left:0; padding:1rem; padding-top:4rem; }
+
+  /* Overlay gelap saat sidebar terbuka */
+  body::before {
+    content:''; position:fixed; top:0; left:0; right:0; bottom:0;
+    background:rgba(0,0,0,0); pointer-events:none; z-index:150;
+    transition:background .3s;
+  }
+  body.sidebar-open::before {
+    background:rgba(0,0,0,.5); pointer-events:auto;
+  }
+
+  /* Grid responsif */
+  .form-grid { grid-template-columns:1fr; gap:.75rem; }
+
+  /* Topbar dashboard */
+  .topbar { flex-direction:column; align-items:flex-start !important; }
+
+  /* Card statistik jadi 2 kolom */
+  .stats-grid { grid-template-columns:repeat(2,1fr) !important; }
+
+  /* Shortcut menu jadi 2 kolom */
+  .shortcut-grid { grid-template-columns:repeat(2,1fr) !important; }
+
+  /* Tabel produk & transaksi jadi 1 kolom */
+  .content-grid { grid-template-columns:1fr !important; }
+  .content-grid .card { overflow:hidden; }
+
+  /* Ringkasan riwayat jadi 1 kolom */
+  .summary-grid { grid-template-columns:1fr !important; }
+
+  /* Tabel scroll horizontal */
+  .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table { min-width:600px; }
+
+  /* Dashboard table - tidak perlu scroll, gunakan ellipsis */
+  .dashboard-table { min-width:auto !important; }
+  .dashboard-table th { font-size:.68rem; padding:.4rem .3rem; }
+  .dashboard-table td { font-size:.8rem; padding:.5rem .3rem; }
+  .dashboard-table th:nth-child(1) { width:30%; }
+  .dashboard-table th:nth-child(2) { width:30%; }
+  .dashboard-table th:nth-child(3) { width:25%; }
+  .dashboard-table th:nth-child(4) { width:15%; }
+
+  /* Transaction list lebih compact */
+  .transaction-list > div { padding:.5rem 0 !important; gap:8px !important; }
+  .transaction-list > div > div:first-child { width:30px !important; height:30px !important; font-size:.85rem !important; }
+  .transaction-list > div > div:nth-child(2) > div:first-child { font-size:.8rem !important; }
+  .transaction-list > div > div:nth-child(2) > div:last-child { font-size:.7rem !important; }
+  .transaction-list > div > div:last-child { font-size:.8rem !important; }
+
+  /* Tabel produk lebih compact */
+  .produk-table { min-width:700px; }
+  .produk-table th { font-size:.68rem; padding:.4rem .3rem; }
+  .produk-table td { font-size:.75rem; padding:.5rem .3rem; }
+  .produk-table .btn-kecil { padding:4px 8px; font-size:.7rem; margin:1px; }
+  .produk-table .badge { font-size:.68rem; padding:2px 6px; }
+
+  /* Tabel lainnya lebih compact */
+  .keluar-table, .kategori-table, .riwayat-table, .supplier-table, .user-table { min-width:700px; }
+  .keluar-table th, .kategori-table th, .riwayat-table th, .supplier-table th, .user-table th { font-size:.68rem; padding:.4rem .3rem; }
+  .keluar-table td, .kategori-table td, .riwayat-table td, .supplier-table td, .user-table td { font-size:.75rem; padding:.5rem .3rem; }
+  .keluar-table .btn-kecil, .kategori-table .btn-kecil, .riwayat-table .btn-kecil, .supplier-table .btn-kecil, .user-table .btn-kecil { padding:4px 8px; font-size:.7rem; margin:1px; }
+  .keluar-table .badge, .kategori-table .badge, .riwayat-table .badge, .supplier-table .badge, .user-table .badge { font-size:.68rem; padding:2px 6px; }
+
+  /* Card dengan max-width jadi full width */
+  .card[style*="max-width"] { max-width:100% !important; }
+
+  /* Tab filter buttons wrap */
+  div[style*="display:flex;gap:8px"] button { flex:1; min-width:auto; }
+
+  /* Statistik card lebih compact */
+  .stats-grid > div { padding:.9rem 1rem !important; }
+  .stats-grid > div > div[style*="font-size:1.75rem"],
+  .stats-grid > div > div[style*="font-size:1.5rem"] { font-size:1.3rem !important; }
+
+  /* Shortcut menu lebih compact */
+  .shortcut-grid a { padding:.85rem !important; }
+
+  /* Button group wrap */
+  .card-head { flex-direction:column; align-items:flex-start !important; gap:8px; }
+
+  /* Form filter wrap */
+  form[style*="display:flex"] { flex-direction:column; align-items:stretch !important; }
+  form[style*="display:flex"] .form-input { width:100% !important; }
+  form[style*="display:flex"] .btn { width:100%; justify-content:center; }
+  form[style*="display:flex"] .form-group { width:100%; }
+
+  /* Action buttons di tabel */
+  td .btn { margin-bottom:4px; }
+}
+
+@media (max-width:480px) {
+  .page-title { font-size:1.3rem; }
+  .card { padding:1rem; }
+  .btn { width:100%; justify-content:center; }
+
+  /* Statistik jadi 1 kolom di layar sangat kecil */
+  .stats-grid { grid-template-columns:1fr !important; }
+  .shortcut-grid { grid-template-columns:1fr !important; }
+
+  /* Statistik card lebih compact lagi */
+  .stats-grid > div { padding:.75rem .85rem !important; }
+  .stats-grid > div > div[style*="font-size:1.75rem"],
+  .stats-grid > div > div[style*="font-size:1.5rem"],
+  .stats-grid > div > div[style*="font-size:1.4rem"] { font-size:1.2rem !important; }
+  .stats-grid > div > div[style*="font-size:.72rem"] { font-size:.68rem !important; }
+
+  /* Summary grid lebih compact */
+  .summary-grid > div { padding:.85rem 1rem !important; }
+  .summary-grid > div > div[style*="font-size:1.4rem"] { font-size:1.2rem !important; }
+
+  /* Dashboard table lebih compact */
+  .dashboard-table th { font-size:.65rem !important; padding:.35rem .25rem !important; }
+  .dashboard-table td { font-size:.75rem !important; padding:.45rem .25rem !important; }
+  .dashboard-table .badge { font-size:.65rem !important; padding:2px 6px !important; }
+  .dashboard-table th:nth-child(1) { width:35%; }
+  .dashboard-table th:nth-child(2) { width:0; display:none; }
+  .dashboard-table td:nth-child(2) { display:none; }
+  .dashboard-table th:nth-child(3) { width:40%; }
+  .dashboard-table th:nth-child(4) { width:25%; }
+
+  /* Transaction list lebih compact */
+  .transaction-list > div { padding:.45rem 0 !important; gap:6px !important; }
+  .transaction-list > div > div:first-child { width:28px !important; height:28px !important; font-size:.8rem !important; }
+  .transaction-list > div > div:nth-child(2) > div:first-child { font-size:.75rem !important; }
+  .transaction-list > div > div:nth-child(2) > div:last-child { font-size:.68rem !important; }
+  .transaction-list > div > div:last-child { font-size:.75rem !important; }
+
+  /* Tabel produk lebih compact lagi */
+  .produk-table { min-width:650px; }
+  .produk-table th { font-size:.65rem !important; padding:.35rem .25rem !important; }
+  .produk-table td { font-size:.7rem !important; padding:.45rem .25rem !important; }
+  .produk-table .btn-kecil { padding:3px 6px !important; font-size:.65rem !important; margin:1px !important; }
+  .produk-table .badge { font-size:.65rem !important; padding:1px 5px !important; }
+
+  /* Tabel lainnya lebih compact lagi */
+  .keluar-table, .kategori-table, .riwayat-table, .supplier-table, .user-table { min-width:650px; }
+  .keluar-table th, .kategori-table th, .riwayat-table th, .supplier-table th, .user-table th { font-size:.65rem !important; padding:.35rem .25rem !important; }
+  .keluar-table td, .kategori-table td, .riwayat-table td, .supplier-table td, .user-table td { font-size:.7rem !important; padding:.45rem .25rem !important; }
+  .keluar-table .btn-kecil, .kategori-table .btn-kecil, .riwayat-table .btn-kecil, .supplier-table .btn-kecil, .user-table .btn-kecil { padding:3px 6px !important; font-size:.65rem !important; margin:1px !important; }
+  .keluar-table .badge, .kategori-table .badge, .riwayat-table .badge, .supplier-table .badge, .user-table .badge { font-size:.65rem !important; padding:1px 5px !important; }
+
+  /* Font lebih kecil di tabel */
+  th { font-size:.68rem; padding:.4rem .3rem; }
+  td { font-size:.8rem; padding:.5rem .3rem; }
+
+  /* Badge lebih kecil */
+  .badge { font-size:.68rem; padding:2px 7px; }
+
+  /* Hamburger lebih kecil */
+  .hamburger { padding:6px 10px; top:.75rem; left:.75rem; }
+  .hamburger span { width:18px; }
+
+  /* Logo sidebar lebih kecil */
+  .logo img { width:35px !important; height:35px !important; }
+  .logo-text { font-size:.9rem; }
+
+  /* Card title lebih kecil */
+  .card-title { font-size:.95rem; }
+
+  /* Form input lebih compact */
+  .form-input { padding:8px 11px; font-size:.85rem; }
+  .form-label { font-size:.72rem; }
+
+  /* Button lebih compact */
+  .btn { padding:8px 14px; font-size:.8rem; }
+  .btn-kecil { padding:4px 9px; font-size:.72rem; }
 }
 </style>
 </head>
 <body>
 
-<aside class="sidebar">
+<!-- Hamburger Menu Button -->
+<button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle Menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<aside class="sidebar" id="sidebar">
 
   <!-- LOGO — selalu terlihat di atas -->
   <div class="sidebar-top">

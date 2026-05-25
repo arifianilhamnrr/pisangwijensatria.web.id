@@ -111,7 +111,7 @@ include 'header_nav.php';
     <span class="badge-count"><?= mysqli_num_rows($supp_list) ?> supplier</span>
   </div>
   <div class="table-wrap">
-  <table>
+  <table class="supplier-table">
     <thead>
       <tr><th>#</th><th>Nama Pemilik</th><th>Nama Toko</th><th>No. HP</th><th>Alamat</th><th>Aksi</th></tr>
     </thead>
@@ -119,11 +119,11 @@ include 'header_nav.php';
       <?php $no=1; while ($s = mysqli_fetch_assoc($supp_list)): ?>
       <tr>
         <td><?= $no++ ?></td>
-        <td><?= htmlspecialchars($s['nama_supplier']) ?></td>
-        <td><strong><?= htmlspecialchars($s['nama_toko']) ?></strong></td>
-        <td><?= htmlspecialchars($s['no_hp']) ?></td>
-        <td><?= htmlspecialchars($s['alamat']) ?></td>
-        <td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><?= htmlspecialchars($s['nama_supplier']) ?></td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><strong><?= htmlspecialchars($s['nama_toko']) ?></strong></td>
+        <td style="white-space:nowrap"><?= htmlspecialchars($s['no_hp']) ?></td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><?= htmlspecialchars($s['alamat']) ?></td>
+        <td style="white-space:nowrap">
           <a href="kelola_supplier.php?edit=<?= $s['id_supplier'] ?>" class="btn btn-kecil btn-biru">✏ Edit</a>
           <a href="kelola_supplier.php?hapus=<?= $s['id_supplier'] ?>"
              class="btn btn-kecil btn-merah"

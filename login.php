@@ -247,11 +247,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   /* Responsif untuk layar kecil */
-  @media (max-width: 600px) {
-    .card-wrapper { grid-template-columns: 1fr; }
-    .brand-panel { padding: 2rem 1.75rem; min-height: 160px; }
-    .brand-title { font-size: 1.5rem; }
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    .card-wrapper { grid-template-columns: 1fr; max-width: 500px; }
+    .brand-panel { padding: 2rem 1.75rem; min-height: 180px; }
+    .brand-title { font-size: 1.6rem; }
+    .brand-icon { font-size: 3rem; }
     .form-panel { padding: 2rem 1.75rem; }
+    .form-heading { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 600px) {
+    body { padding: .75rem; }
+    .card-wrapper { grid-template-columns: 1fr; }
+    .brand-panel { padding: 1.75rem 1.5rem; min-height: 160px; }
+    .brand-title { font-size: 1.5rem; }
+    .brand-icon { font-size: 2.5rem; }
+    .brand-sub { font-size: .8rem; }
+    .form-panel { padding: 1.75rem 1.5rem; }
+    .form-heading { font-size: 1.3rem; }
+    .form-subheading { font-size: .8rem; }
+    .demo-info { padding: .75rem .875rem; }
+    .demo-row { font-size: .75rem; flex-direction: column; gap: 2px; }
+  }
+
+  @media (max-width: 480px) {
+    body { padding: .5rem; }
+    .brand-panel { padding: 1.5rem 1.25rem; min-height: 140px; }
+    .brand-title { font-size: 1.3rem; }
+    .brand-icon { font-size: 2rem; }
+    .brand-sub { font-size: .75rem; line-height: 1.5; }
+    .brand-badge { font-size: .72rem; padding: 6px 12px; }
+    .form-panel { padding: 1.5rem 1.25rem; }
+    .form-heading { font-size: 1.2rem; }
+    .form-label { font-size: .72rem; }
+    .form-input { padding: 10px 12px; font-size: .875rem; }
+    .btn-login { padding: 12px; font-size: .9rem; }
+    .demo-title { font-size: .7rem; }
+    .demo-row { font-size: .7rem; }
+    .form-footer { font-size: .72rem; }
+    .alert { font-size: .8rem; padding: 9px 12px; }
   }
 </style>
 </head>

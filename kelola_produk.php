@@ -221,7 +221,7 @@ include 'header_nav.php';
   </div>
 
   <div class="table-wrap">
-  <table>
+  <table class="produk-table">
     <thead>
       <tr>
         <th>#</th>
@@ -251,14 +251,14 @@ include 'header_nav.php';
           }
           ?>
         </td>
-        <td><?= htmlspecialchars($p['nama_produk']) ?></td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><?= htmlspecialchars($p['nama_produk']) ?></td>
         <td>
           <span class="badge <?= $jenis_tab==='bahan' ? 'badge-abu' : 'badge-o' ?>">
             <?= htmlspecialchars($p['nama_kategori'] ?? '-') ?>
           </span>
         </td>
-        <td>Rp <?= number_format((int)$p['harga_produk'],0,',','.') ?></td>
-        <td><?= $p['stok_supp'] ?> <?= htmlspecialchars($p['satuan']) ?></td>
+        <td style="white-space:nowrap">Rp <?= number_format((int)$p['harga_produk'],0,',','.') ?></td>
+        <td style="white-space:nowrap"><?= $p['stok_supp'] ?> <?= htmlspecialchars($p['satuan']) ?></td>
         <td>
           <?php if ($p['stok_supp'] == 0): ?>
             <span class="badge badge-w">&#10005; Habis</span>
@@ -268,7 +268,7 @@ include 'header_nav.php';
             <span class="badge badge-h">&#10003; Normal</span>
           <?php endif; ?>
         </td>
-        <td>
+        <td style="white-space:nowrap">
           <a href="kelola_produk.php?edit=<?= $p['id_produk'] ?>" class="btn btn-kecil btn-biru">Edit</a>
           <a href="kelola_produk.php?hapus=<?= $p['id_produk'] ?>"
              class="btn btn-kecil btn-merah"
